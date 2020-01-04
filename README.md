@@ -90,13 +90,13 @@ import sample1 from './sample1.service'; // eslint-disable-line import/extension
 
 // import the service types from sample2 service
 import {
-  ServiceAction as Sample1Action,
-  ServiceEvent as Sample1Event,
-  ServiceName as Sample1Name
+  ServiceAction as Sample2Action,
+  ServiceEvent as Sample2Event,
+  ServiceName as Sample2Name
 } from './sample2.service.types'; // eslint-disable-line import/extensions
 
 // import the actual service schema of the sample2 service
-import sample1 from './sample1.service'; // eslint-disable-line import/extensions
+import sample2 from './sample2.service'; // eslint-disable-line import/extensions
 
 // build union of types
 type ServiceAction = Sample1Action | Sample2Action;
@@ -120,8 +120,41 @@ broker.createService(sample2);
 broker.start();
 
 // now the broker call/emit methods are typescript aware to your specific services
-broker.emit('sample1.event2', { id: '1234' });
-const response: string = await broker.call('sample1.welcome', {
-  name: 'John'
-});
+broker.emit('sample1.event2', { id: '1234' }); // no typescript error
+
+broker.emit('sample1.event2'); // typescript error since arguments are expected
+
+broker.emit('sample1.event2', { id: 1234 }); // typescript error since arguments are of wrong type
+
+broker.call('sample1.hello'); // no typescript error
+
+broker.call('sample1.hello', {}); // typescript error since this action does not take an argument
+
+broker.call('sample1.welcome', {
+      name: 'John'
+    }); // no typescript error
+
+broker.call('sample1.welcome'); // typescript error since arguments are expected
+
+broker.call('sample1.welcome', {
+      id: 1234
+    }); // typescript error since type of arguments are supplied
+
+const result: PromiseLike<number> = broker.call('sample1.welcome', {
+      name: 'John'
+    }); // typescript error since return type is different
 ```
+
+On VS Code and other typescript aware IDEs, code intellisense should work:
+
+<p align="center">
+<img src="image1.png" width="1000" height="200" />
+</p>
+
+<p align="center">
+<img src="image2.png" width="1000" height="200" />
+</p>
+
+<p align="center">
+<img src="image3.png" width="1000" height="200" />
+</p>
