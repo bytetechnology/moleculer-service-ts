@@ -20,7 +20,7 @@ import {
   GenericActionWithoutParameters,
   GenericEventWithoutPayload,
   GenericEventWithPayload
-} from 'moleculer-service-ts'; // eslint-disable-line import/extensions
+} from 'moleculer-service-ts';
 
 export type ServiceName = 'sample1';
 
@@ -49,7 +49,7 @@ import {
   GenericActionWithoutParameters,
   GenericEventWithoutPayload,
   GenericEventWithPayload
-} from 'moleculer-service-ts'; // eslint-disable-line import/extensions
+} from 'moleculer-service-ts';
 
 export type ServiceName = 'sample2';
 
@@ -76,7 +76,7 @@ Then, when you want to call actions and emit events, you import the type definit
 main.ts:
 
 ```ts
-import { TypedServiceBroker } from 'moleculer-service-ts'; // eslint-disable-line import/extensions
+import { TypedServiceBroker } from 'moleculer-service-ts';
 
 // import the service types from sample1 service
 import {
