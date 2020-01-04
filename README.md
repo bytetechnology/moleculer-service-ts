@@ -138,7 +138,7 @@ broker.call('sample1.welcome'); // typescript error since arguments are expected
 
 broker.call('sample1.welcome', {
       id: 1234
-    }); // typescript error since type of arguments are supplied
+    }); // typescript error since wrong type of arguments are supplied
 
 const result: PromiseLike<number> = broker.call('sample1.welcome', {
       name: 'John'
