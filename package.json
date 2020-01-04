@@ -11,13 +11,18 @@
     "build": "tsc",
     "format": "prettier --write src/**/*.ts",
     "lint": "eslint src/**/*.ts",
-    "test": "jest --coverage --forceExit --detectOpenHandles"
+    "prepare" : "npm run build",
+    "prepublishOnly" : "npm test && npm run lint",
+    "preversion" : "npm run lint",
+    "test": "jest --coverage --forceExit --detectOpenHandles",
+    "version": "npm run format && git add -A src",
+    "postversion": "git push && git push --tags"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/bytetechnology/moleculer-service-ts.git"
   },
-  "keywords": [],
+  "keywords": ["moleculer", "service", "typescript"],
   "author": "",
   "license": "ISC",
   "bugs": {
