@@ -14,7 +14,7 @@ Define actions you handle and events you emit in your service in a ```<service>.
 
 Example sample1.service.types.ts:
 
-```js
+```ts
 import {
   GenericActionWithParameters,
   GenericActionWithoutParameters,
@@ -43,7 +43,7 @@ export type ServiceEvent =
 ```
 
 Example sample2.service.types.ts:
-```js
+```ts
 import {
   GenericActionWithParameters,
   GenericActionWithoutParameters,
@@ -75,7 +75,7 @@ Then, when you want to call actions and emit events, you import the type definit
 
 main.ts:
 
-```js
+```ts
 import { TypedServiceBroker } from 'moleculer-service-ts'; // eslint-disable-line import/extensions
 
 // import the service types from sample1 service
