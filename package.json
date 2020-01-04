@@ -1,6 +1,6 @@
 {
   "name": "moleculer-service-ts",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Typescript support for moleculer service actions and events",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -11,9 +11,9 @@
     "build": "tsc",
     "format": "prettier --write src/**/*.ts",
     "lint": "eslint src/**/*.ts",
-    "prepare" : "npm run build",
-    "prepublishOnly" : "npm test && npm run lint",
-    "preversion" : "npm run lint",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm test && npm run lint",
+    "preversion": "npm run lint",
     "test": "jest --coverage --forceExit --detectOpenHandles",
     "version": "npm run format && git add -A src",
     "postversion": "git push && git push --tags"
@@ -22,7 +22,11 @@
     "type": "git",
     "url": "git+https://github.com/bytetechnology/moleculer-service-ts.git"
   },
-  "keywords": ["moleculer", "service", "typescript"],
+  "keywords": [
+    "moleculer",
+    "service",
+    "typescript"
+  ],
   "author": "",
   "license": "ISC",
   "bugs": {
