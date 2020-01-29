@@ -1,6 +1,6 @@
 // Moleculer micro-services framework
 import moleculer from 'moleculer';
-import { Action, Event, Service } from 'moleculer-decorators';
+import { Action, Event, Method, Service } from 'moleculer-decorators';
 import Validator, { ValidationError } from 'fastest-validator';
 
 const validator = new Validator();
@@ -48,13 +48,20 @@ class Sample1 extends moleculer.Service {
     return `Welcome ${ctx.params.foo}!`;
   }
 
+  @Method
+  event1TestReturn() {} // eslint-disable-line class-methods-use-this
+
   @Event() 'sample1.event1'(
     payload: null,
     sender: string,
     eventName: string
   ) {
     this.logger.info(`Got event ${eventName} from sender ${sender}`);
+    this.event1TestReturn();
   }
+
+  @Method
+  event2TestReturn() {} // eslint-disable-line class-methods-use-this
 
   @Event() 'sample1.event2'(
     payload: typeof eventSchema,
@@ -76,6 +83,7 @@ class Sample1 extends moleculer.Service {
     this.logger.info(
       `Got event ${eventName} from sender ${sender}; id: ${payload.id}`
     );
+    this.event2TestReturn();
   }
 }
 

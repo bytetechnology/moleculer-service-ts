@@ -170,21 +170,21 @@ export class TypedServiceBroker<
     name: T,
     payload?: undefined,
     groups?: Array<S> | S
-  ): void;
+  ): PromiseLike<void>;
 
   // eslint-disable-next-line no-dupe-class-members
   public emit<T extends EventNameWithPayload<E>>(
     name: T,
     payload: EventPayload<E, T>,
     groups?: Array<S> | S
-  ): void;
+  ): PromiseLike<void>;
 
   // eslint-disable-next-line no-dupe-class-members
   public emit<T extends EventName<E>>(
     name: T,
     payload?: EventPayload<E, T>,
     groups?: Array<S> | S
-  ): void {
+  ): PromiseLike<void> {
     return super.emit(name, payload, groups);
   }
 
@@ -193,21 +193,21 @@ export class TypedServiceBroker<
     name: T,
     payload?: undefined,
     groups?: Array<S> | S
-  ): void;
+  ): PromiseLike<void>;
 
   // eslint-disable-next-line no-dupe-class-members
   public broadcast<T extends EventNameWithPayload<E>>(
     name: T,
     payload: EventPayload<E, T>,
     groups?: Array<S> | S
-  ): void;
+  ): PromiseLike<void>;
 
   // eslint-disable-next-line no-dupe-class-members
   public broadcast<T extends EventName<E>>(
     name: T,
     payload?: EventPayload<E, T>,
     groups?: Array<S> | S
-  ): void {
+  ): PromiseLike<void> {
     return super.broadcast(name, payload, groups);
   }
 
@@ -216,21 +216,21 @@ export class TypedServiceBroker<
     name: T,
     payload?: undefined,
     groups?: Array<S> | S
-  ): void;
+  ): PromiseLike<void>;
 
   // eslint-disable-next-line no-dupe-class-members
   public broadcastLocal<T extends EventNameWithPayload<E>>(
     name: T,
     payload: EventPayload<E, T>,
     groups?: Array<S> | S
-  ): void;
+  ): PromiseLike<void>;
 
   // eslint-disable-next-line no-dupe-class-members
   public broadcastLocal<T extends EventName<E>>(
     name: T,
     payload?: EventPayload<E, T>,
     groups?: Array<S> | S
-  ): void {
+  ): PromiseLike<void> {
     return super.broadcastLocal(name, payload, groups);
   }
 }

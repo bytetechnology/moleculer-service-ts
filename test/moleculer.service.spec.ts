@@ -20,9 +20,9 @@ describe('moleculer-service-ts', () => {
     ServiceEvent,
     ServiceName
   >({ logLevel: 'info' });
+  const sampleService = broker.createService(sample1);
 
   beforeAll(async () => {
-    broker.createService(sample1);
     await broker.start();
   });
 
@@ -31,38 +31,81 @@ describe('moleculer-service-ts', () => {
     await broker.stop();
   });
 
-  it('Action without parameter', async () => {
-    // emit an event as well so that that can get tested. no return on event
-    broker.emit('sample1.event1', undefined, 'sample1');
-    const response: string = await broker.call('sample1.hello');
-    expect(response).toBe('Hello World!');
+  // test actions
+  describe('Testing actions', () => {
+    it('Action without parameter', async () => {
+      const response: string = await broker.call('sample1.hello');
+      expect(response).toBe('Hello World!');
+    });
+
+    it('Action with required parameter', async () => {
+      const response: string = await broker.call('sample1.welcome', {
+        name: 'Ujwal'
+      });
+      expect(response).toBe('Welcome Ujwal!');
+    });
+
+    it('Action with optional parameter missing', async () => {
+      const response: string = await broker.call('sample1.boo', {
+        foo: 'Foo'
+      });
+      expect(response).toBe('Welcome Foo!');
+    });
+
+    it('Action with optional parameter included', async () => {
+      const response: string = await broker.call('sample1.boo', {
+        foo: 'Foo',
+        bar: 'Bar'
+      });
+      expect(response).toBe('Welcome Foo Bar!');
+    });
   });
 
-  it('Action with required parameter', async () => {
-    // emit an event as well so that that can get tested. no return on event
-    broker.emit('sample1.event2', { id: '1234' });
-    const response: string = await broker.call('sample1.welcome', {
-      name: 'Ujwal'
+  // test events
+  describe('Testing events', () => {
+    beforeAll(() => {
+      sampleService.event1TestReturn = jest.fn();
+      sampleService.event2TestReturn = jest.fn();
     });
-    expect(response).toBe('Welcome Ujwal!');
-  });
+    afterAll(() => {
+      sampleService.event1TestReturn.mockRestore();
+      sampleService.event2TestReturn.mockRestore();
+    });
 
-  it('Action with optional parameter missing', async () => {
-    // emit an event as well so that that can get tested. no return on event
-    broker.emit('sample1.event1', undefined, 'sample1');
-    const response: string = await broker.call('sample1.boo', {
-      foo: 'Foo'
+    it('Event1 without payload', () => {
+      sampleService.emitLocalEventHandler(
+        'sample1.event1',
+        null,
+        'sample1'
+      );
+      expect(sampleService.event1TestReturn).toBeCalledTimes(1);
     });
-    expect(response).toBe('Welcome Foo!');
-  });
 
-  it('Action with optional parameter included', async () => {
-    // emit an event as well so that that can get tested. no return on event
-    broker.emit('sample1.event2', { id: '5678' }, 'sample1');
-    const response: string = await broker.call('sample1.boo', {
-      foo: 'Foo',
-      bar: 'Bar'
+    it('Event1 with payload', () => {
+      sampleService.emitLocalEventHandler(
+        'sample1.event1',
+        { foo: 'bar' },
+        'sample1'
+      );
+      expect(sampleService.event1TestReturn).toBeCalledTimes(2);
     });
-    expect(response).toBe('Welcome Foo Bar!');
+
+    it('Event2 with good payload', () => {
+      sampleService.emitLocalEventHandler(
+        'sample1.event2',
+        { id: '1234' },
+        'sample1'
+      );
+      expect(sampleService.event2TestReturn).toBeCalledTimes(1);
+    });
+
+    it('Event2 with bad payload', () => {
+      sampleService.emitLocalEventHandler(
+        'sample1.event2',
+        { id: 1234 },
+        'sample1'
+      );
+      expect(sampleService.event2TestReturn).toBeCalledTimes(2);
+    });
   });
 });
