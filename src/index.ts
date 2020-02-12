@@ -147,21 +147,21 @@ export class TypedServiceBroker<
   // Overload our call functions to type them
   public call<T extends ActionNameWithoutParameters<A>>(
     name: T
-  ): PromiseLike<ActionReturns<A, T>>;
+  ): Promise<ActionReturns<A, T>>;
 
   // eslint-disable-next-line no-dupe-class-members
   public call<T extends ActionNameWithParameters<A>>(
     name: T,
     params: ActionParameters<A, T>,
     opts?: moleculer.CallingOptions
-  ): PromiseLike<ActionReturns<A, T>>;
+  ): Promise<ActionReturns<A, T>>;
 
   // eslint-disable-next-line no-dupe-class-members
   public call<T extends ActionName<A>>(
     name: T,
     params?: ActionParameters<A, T>,
     opts?: moleculer.CallingOptions
-  ): PromiseLike<ActionReturns<A, T>> {
+  ): Promise<ActionReturns<A, T>> {
     return super.call(name, <any>params, opts);
   }
 
@@ -169,68 +169,106 @@ export class TypedServiceBroker<
   public emit<T extends EventNameWithoutPayload<E>>(
     name: T,
     payload?: undefined,
-    groups?: Array<S> | S
-  ): PromiseLike<void>;
+    groups?: string | Array<string>
+  ): Promise<void>;
+
+  // eslint-disable-next-line no-dupe-class-members
+  public emit<T extends EventNameWithoutPayload<E>>(
+    name: T,
+    payload?: undefined,
+    opts?: GenericObject
+  ): Promise<void>;
 
   // eslint-disable-next-line no-dupe-class-members
   public emit<T extends EventNameWithPayload<E>>(
     name: T,
     payload: EventPayload<E, T>,
-    groups?: Array<S> | S
-  ): PromiseLike<void>;
+    groups?: string | Array<string>
+  ): Promise<void>;
 
   // eslint-disable-next-line no-dupe-class-members
-  public emit<T extends EventName<E>>(
+  public emit<T extends EventNameWithPayload<E>>(
     name: T,
-    payload?: EventPayload<E, T>,
-    groups?: Array<S> | S
-  ): PromiseLike<void> {
-    return super.emit(name, payload, groups);
+    payload: EventPayload<E, T>,
+    opts?: moleculer.GenericObject
+  ): Promise<void>;
+
+  // eslint-disable-next-line no-dupe-class-members
+  public emit(name: any, payload?: any, opts?: any): Promise<void> {
+    return super.emit(name, payload, opts);
   }
 
-  // overload our broadcast functions
+  // Overload our broadcast functions to type them
   public broadcast<T extends EventNameWithoutPayload<E>>(
     name: T,
     payload?: undefined,
-    groups?: Array<S> | S
-  ): PromiseLike<void>;
+    groups?: string | Array<string>
+  ): Promise<void>;
+
+  // eslint-disable-next-line no-dupe-class-members
+  public broadcast<T extends EventNameWithoutPayload<E>>(
+    name: T,
+    payload?: undefined,
+    opts?: GenericObject
+  ): Promise<void>;
 
   // eslint-disable-next-line no-dupe-class-members
   public broadcast<T extends EventNameWithPayload<E>>(
     name: T,
     payload: EventPayload<E, T>,
-    groups?: Array<S> | S
-  ): PromiseLike<void>;
+    groups?: string | Array<string>
+  ): Promise<void>;
 
   // eslint-disable-next-line no-dupe-class-members
-  public broadcast<T extends EventName<E>>(
+  public broadcast<T extends EventNameWithPayload<E>>(
     name: T,
-    payload?: EventPayload<E, T>,
-    groups?: Array<S> | S
-  ): PromiseLike<void> {
-    return super.broadcast(name, payload, groups);
+    payload: EventPayload<E, T>,
+    opts?: moleculer.GenericObject
+  ): Promise<void>;
+
+  // eslint-disable-next-line no-dupe-class-members
+  public broadcast(
+    name: any,
+    payload?: any,
+    opts?: any
+  ): Promise<void> {
+    return super.emit(name, payload, opts);
   }
 
-  // overload our broadcastLocal functions
+  // Overload our broadcastLocal functions to type them
   public broadcastLocal<T extends EventNameWithoutPayload<E>>(
     name: T,
     payload?: undefined,
-    groups?: Array<S> | S
-  ): PromiseLike<void>;
+    groups?: string | Array<string>
+  ): Promise<void>;
+
+  // eslint-disable-next-line no-dupe-class-members
+  public broadcastLocal<T extends EventNameWithoutPayload<E>>(
+    name: T,
+    payload?: undefined,
+    opts?: GenericObject
+  ): Promise<void>;
 
   // eslint-disable-next-line no-dupe-class-members
   public broadcastLocal<T extends EventNameWithPayload<E>>(
     name: T,
     payload: EventPayload<E, T>,
-    groups?: Array<S> | S
-  ): PromiseLike<void>;
+    groups?: string | Array<string>
+  ): Promise<void>;
 
   // eslint-disable-next-line no-dupe-class-members
-  public broadcastLocal<T extends EventName<E>>(
+  public broadcastLocal<T extends EventNameWithPayload<E>>(
     name: T,
-    payload?: EventPayload<E, T>,
-    groups?: Array<S> | S
-  ): PromiseLike<void> {
-    return super.broadcastLocal(name, payload, groups);
+    payload: EventPayload<E, T>,
+    opts?: moleculer.GenericObject
+  ): Promise<void>;
+
+  // eslint-disable-next-line no-dupe-class-members
+  public broadcastLocal(
+    name: any,
+    payload?: any,
+    opts?: any
+  ): Promise<void> {
+    return super.emit(name, payload, opts);
   }
 }

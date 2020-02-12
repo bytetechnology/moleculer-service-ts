@@ -105,3 +105,6 @@ dist
 
 # Test coverage output
 test/coverage
+
+# OS filesystem uff
+.DS_Store

@@ -48,6 +48,7 @@ class Sample1 extends moleculer.Service {
     return `Welcome ${ctx.params.foo}!`;
   }
 
+  /* istanbul ignore next */
   @Method
   event1TestReturn() {} // eslint-disable-line class-methods-use-this
 
@@ -60,6 +61,7 @@ class Sample1 extends moleculer.Service {
     this.event1TestReturn();
   }
 
+  /* istanbul ignore next */
   @Method
   event2TestReturn() {} // eslint-disable-line class-methods-use-this
 

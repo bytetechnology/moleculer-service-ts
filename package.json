@@ -44,14 +44,14 @@
     "eslint-plugin-import": "^2.20.0",
     "eslint-plugin-prettier": "^3.1.2",
     "jest": "^25.1.0",
-    "moleculer-decorators": "^1.1.1",
+    "moleculer-decorators": "^1.2.0",
     "prettier": "^1.19.1",
     "ts-jest": "^25.0.0",
     "typescript": "^3.7.5"
   },
   "dependencies": {
     "fastest-validator": "^1.0.0",
-    "moleculer": "^0.14.0-rc1"
+    "moleculer": "^0.14.1"
   },
   "jest": {
     "testEnvironment": "node",

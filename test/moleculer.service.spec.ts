@@ -27,7 +27,7 @@ describe('moleculer-service-ts', () => {
   });
 
   afterAll(async () => {
-    broker.destroyService(sample1);
+    broker.destroyService(sampleService);
     await broker.stop();
   });
 
