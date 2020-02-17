@@ -1,11 +1,8 @@
 // Moleculer micro-services framework
-import moleculer from 'moleculer';
+import moleculer, { Errors } from 'moleculer';
 import { Action, Event, Method, Service } from 'moleculer-decorators';
-import Validator, { ValidationError } from 'fastest-validator';
 
-const validator = new Validator();
 const eventSchema = { id: 'string' };
-const eventSchemaCheck = validator.compile(eventSchema);
 
 // Define our service
 @Service({
@@ -53,10 +50,21 @@ class Sample1 extends moleculer.Service {
   event1TestReturn() {} // eslint-disable-line class-methods-use-this
 
   @Event() 'sample1.event1'(
-    payload: null,
+    payload: never,
     sender: string,
     eventName: string
   ) {
+    if (payload) {
+      this.logger.error(
+        `Validation check failed! event ${eventName} does not take any payload!`
+      );
+      throw new Errors.ValidationError(
+        'Event parameter check failed',
+        'ERR_VALIDATION',
+        payload
+      );
+    }
+
     this.logger.info(`Got event ${eventName} from sender ${sender}`);
     this.event1TestReturn();
   }
@@ -65,23 +73,16 @@ class Sample1 extends moleculer.Service {
   @Method
   event2TestReturn() {} // eslint-disable-line class-methods-use-this
 
-  @Event() 'sample1.event2'(
+  @Event({
+    params: {
+      id: 'string'
+    }
+  })
+  'sample1.event2'(
     payload: typeof eventSchema,
     sender: string,
     eventName: string
   ) {
-    const schemaCheck: boolean | ValidationError[] = eventSchemaCheck(
-      payload
-    );
-    if (schemaCheck !== true) {
-      this.logger.error(
-        `Validation check failed! 
-          ${JSON.stringify(
-            schemaCheck.map(data => Object.assign(data, {}))
-          )}`
-      );
-    }
-
     this.logger.info(
       `Got event ${eventName} from sender ${sender}; id: ${payload.id}`
     );

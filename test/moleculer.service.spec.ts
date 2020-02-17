@@ -73,39 +73,33 @@ describe('moleculer-service-ts', () => {
     });
 
     it('Event1 without payload', () => {
-      sampleService.emitLocalEventHandler(
-        'sample1.event1',
-        null,
-        'sample1'
-      );
+      broker.emit('sample1.event1', undefined, 'sample1');
       expect(sampleService.event1TestReturn).toBeCalledTimes(1);
     });
 
     it('Event1 with payload', () => {
+      // We use emitlocalEventHandler because our typed broker won't allow us to send bad payloads :-)
       sampleService.emitLocalEventHandler(
         'sample1.event1',
         { foo: 'bar' },
         'sample1'
       );
-      expect(sampleService.event1TestReturn).toBeCalledTimes(2);
+      expect(sampleService.event1TestReturn).toBeCalledTimes(1);
     });
 
     it('Event2 with good payload', () => {
-      sampleService.emitLocalEventHandler(
-        'sample1.event2',
-        { id: '1234' },
-        'sample1'
-      );
+      broker.emit('sample1.event2', { id: '1234' }, 'sample1');
       expect(sampleService.event2TestReturn).toBeCalledTimes(1);
     });
 
     it('Event2 with bad payload', () => {
+      // We use emitlocalEventHandler because our typed broker won't allow us to send bad payloads :-)
       sampleService.emitLocalEventHandler(
         'sample1.event2',
         { id: 1234 },
         'sample1'
       );
-      expect(sampleService.event2TestReturn).toBeCalledTimes(2);
+      expect(sampleService.event2TestReturn).toBeCalledTimes(1);
     });
   });
 });
