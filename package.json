@@ -9,8 +9,8 @@
   ],
   "scripts": {
     "build": "tsc",
-    "format": "prettier --write src/**/*.ts",
-    "lint": "eslint src/**/*.ts",
+    "format": "prettier --write \"{src,{tests,mocks}}/**/*.{js,ts}\"",
+    "lint": "eslint --fix \"{src,{tests,mocks}}/**/*.{js,ts}\"",
     "prepare": "npm run build",
     "prepublishOnly": "npm test && npm run lint",
     "preversion": "npm run lint",
@@ -34,23 +34,23 @@
   },
   "homepage": "https://github.com/bytetechnology/moleculer-service-ts#readme",
   "devDependencies": {
-    "@types/jest": "^25.1.2",
-    "@types/node": "^13.7.1",
-    "@typescript-eslint/eslint-plugin": "^2.20.0",
-    "@typescript-eslint/parser": "^2.20.0",
+    "@types/jest": "^25.1.4",
+    "@types/node": "^13.9.5",
+    "@typescript-eslint/eslint-plugin": "^2.25.0",
+    "@typescript-eslint/parser": "^2.25.0",
     "eslint": "^6.8.0",
-    "eslint-config-airbnb-base": "^14.0.0",
-    "eslint-config-prettier": "^6.10.0",
-    "eslint-plugin-import": "^2.20.1",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-config-prettier": "^6.10.1",
+    "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-prettier": "^3.1.2",
-    "jest": "^25.1.0",
+    "jest": "^25.2.3",
     "moleculer-decorators": "^1.2.0",
-    "prettier": "^1.19.1",
-    "ts-jest": "^25.2.0",
-    "typescript": "^3.7.5"
+    "prettier": "^2.0.2",
+    "ts-jest": "^25.2.1",
+    "typescript": "^3.8.3"
   },
   "dependencies": {
-    "moleculer": "^0.14.2"
+    "moleculer": "^0.14.5"
   },
   "jest": {
     "testEnvironment": "node",

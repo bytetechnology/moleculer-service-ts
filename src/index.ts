@@ -146,7 +146,9 @@ export class TypedServiceBroker<
 > extends moleculer.ServiceBroker {
   // Overload our call functions to type them
   public call<T extends ActionNameWithoutParameters<A>>(
-    name: T
+    name: T,
+    params?: undefined,
+    opts?: moleculer.CallingOptions
   ): Promise<ActionReturns<A, T>>;
 
   // eslint-disable-next-line no-dupe-class-members

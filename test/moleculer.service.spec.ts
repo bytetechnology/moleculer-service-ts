@@ -35,7 +35,16 @@ describe('moleculer-service-ts', () => {
   describe('Testing actions', () => {
     it('Action without parameter', async () => {
       const response: string = await broker.call('sample1.hello');
-      expect(response).toBe('Hello World!');
+      expect(response).toBe('Hello World null!');
+    });
+
+    it('Action without parameter, but with calling options', async () => {
+      const response: string = await broker.call(
+        'sample1.hello',
+        undefined,
+        { caller: 'test' }
+      );
+      expect(response).toBe('Hello World test!');
     });
 
     it('Action with required parameter', async () => {

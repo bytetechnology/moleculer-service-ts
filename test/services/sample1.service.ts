@@ -13,8 +13,10 @@ class Sample1 extends moleculer.Service {
   // Our actions
   @Action()
   hello(ctx: moleculer.Context) {
-    this.logger.info(`hello got called from ${ctx.nodeID}`);
-    return `Hello World!`;
+    this.logger.info(
+      `hello got called from ${ctx.nodeID}; caller: ${ctx.caller}`
+    );
+    return `Hello World ${ctx.caller}!`;
   }
 
   @Action({
