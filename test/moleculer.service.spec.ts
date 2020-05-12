@@ -14,12 +14,15 @@ describe('moleculer-service-ts', () => {
   const broker: TypedServiceBroker<
     ServiceAction,
     ServiceEvent,
-    ServiceName
-  > = new TypedServiceBroker<
-    ServiceAction,
-    ServiceEvent,
-    ServiceName
-  >({ logLevel: 'info' });
+    ServiceName,
+    {
+      auth: {
+        userId: string;
+        clientId: string;
+        roles: string[];
+      };
+    }
+  > = new TypedServiceBroker({ logLevel: 'info' });
   const sampleService = broker.createService(sample1);
 
   beforeAll(async () => {
@@ -48,9 +51,21 @@ describe('moleculer-service-ts', () => {
     });
 
     it('Action with required parameter', async () => {
-      const response: string = await broker.call('sample1.welcome', {
-        name: 'Ujwal'
-      });
+      const response: string = await broker.call(
+        'sample1.welcome',
+        {
+          name: 'Ujwal'
+        },
+        {
+          meta: {
+            auth: {
+              userId: 'abcd',
+              clientId: 'efgh',
+              roles: ['admin']
+            }
+          }
+        }
+      );
       expect(response).toBe('Welcome Ujwal!');
     });
 

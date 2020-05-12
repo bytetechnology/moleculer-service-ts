@@ -142,27 +142,34 @@ export type GenericEventWithPayload<
 export class TypedServiceBroker<
   A extends ActionInterface,
   E extends EventInterface,
-  S extends string
+  S extends string,
+  M extends GenericObject = GenericObject
 > extends moleculer.ServiceBroker {
   // Overload our call functions to type them
   public call<T extends ActionNameWithoutParameters<A>>(
     name: T,
     params?: undefined,
-    opts?: moleculer.CallingOptions
+    opts?: moleculer.CallingOptions & {
+      meta?: M;
+    }
   ): Promise<ActionReturns<A, T>>;
 
   // eslint-disable-next-line no-dupe-class-members
   public call<T extends ActionNameWithParameters<A>>(
     name: T,
     params: ActionParameters<A, T>,
-    opts?: moleculer.CallingOptions
+    opts?: moleculer.CallingOptions & {
+      meta?: M;
+    }
   ): Promise<ActionReturns<A, T>>;
 
   // eslint-disable-next-line no-dupe-class-members
   public call<T extends ActionName<A>>(
     name: T,
     params?: ActionParameters<A, T>,
-    opts?: moleculer.CallingOptions
+    opts?: moleculer.CallingOptions & {
+      meta?: M;
+    }
   ): Promise<ActionReturns<A, T>> {
     return super.call(name, <any>params, opts);
   }
