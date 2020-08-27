@@ -1,6 +1,6 @@
 {
   "name": "moleculer-service-ts",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Typescript support for moleculer service actions and events",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
