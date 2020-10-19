@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 // Moleculer micro-services framework
 import moleculer from 'moleculer';
 
@@ -91,9 +92,6 @@ type EventPayload<E, T> = E extends EventWithPayloadInterface
   ? Extract<E, { name: T }>['payload']
   : never;
 
-// Get event name type from a list of event types
-type EventName<E extends EventInterface> = E['name'];
-
 // Get event name types for event types without payload
 type EventNameWithoutPayload<
   E extends EventInterface
@@ -142,6 +140,7 @@ export type GenericEventWithPayload<
 export class TypedServiceBroker<
   A extends ActionInterface,
   E extends EventInterface,
+  // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
   S extends string,
   M extends GenericObject = GenericObject
 > extends moleculer.ServiceBroker {
