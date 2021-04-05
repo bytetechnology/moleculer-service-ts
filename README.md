@@ -1,6 +1,6 @@
 # moleculer-service-ts
-Typescript support for moleculer service actions and events
 
+Typescript support for moleculer service actions and events
 
 ## Installation
 
@@ -8,9 +8,11 @@ Typescript support for moleculer service actions and events
 npm install moleculer-service-ts
 ```
 
+`moleculer` is a peer dependency, so it will need to be installed separately.
+
 ## Use
 
-Define actions you handle and events you emit in your service in a ```<service>.service.types.ts``` file:
+Define actions you handle and events you emit in your service in a `<service>.service.types.ts` file:
 
 Example sample1.service.types.ts:
 
@@ -43,6 +45,7 @@ export type ServiceEvent =
 ```
 
 Example sample2.service.types.ts:
+
 ```ts
 import {
   GenericActionWithParameters,
@@ -105,14 +108,12 @@ type ServiceName = Sample1Name | Sample2Name;
 
 // create the typed broker
 const broker: TypedServiceBroker<
-    ServiceAction,
-    ServiceEvent,
-    ServiceName
-  > = new TypedServiceBroker<
-    ServiceAction,
-    ServiceEvent,
-    ServiceName
-  >({ logLevel: 'info' });
+  ServiceAction,
+  ServiceEvent,
+  ServiceName
+> = new TypedServiceBroker<ServiceAction, ServiceEvent, ServiceName>({
+  logLevel: 'info'
+});
 
 // create the services and start the broker
 broker.createService(sample1);
@@ -131,18 +132,18 @@ broker.call('sample1.hello'); // no typescript error
 broker.call('sample1.hello', {}); // typescript error since this action does not take an argument
 
 broker.call('sample1.welcome', {
-      name: 'John'
-    }); // no typescript error
+  name: 'John'
+}); // no typescript error
 
 broker.call('sample1.welcome'); // typescript error since arguments are expected
 
 broker.call('sample1.welcome', {
-      id: 1234
-    }); // typescript error since wrong type of arguments are supplied
+  id: 1234
+}); // typescript error since wrong type of arguments are supplied
 
 const result: PromiseLike<number> = broker.call('sample1.welcome', {
-      name: 'John'
-    }); // typescript error since return type is different
+  name: 'John'
+}); // typescript error since return type is different
 ```
 
 On VS Code and other typescript aware IDEs, code intellisense should work:
