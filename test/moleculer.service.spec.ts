@@ -22,7 +22,7 @@ describe('moleculer-service-ts', () => {
         roles: string[];
       };
     }
-  > = new TypedServiceBroker({ logLevel: 'info' });
+  > = new TypedServiceBroker({ logLevel: 'fatal' });
   const sampleService = broker.createService(sample1);
 
   beforeAll(async () => {
@@ -54,7 +54,7 @@ describe('moleculer-service-ts', () => {
       const response: string = await broker.call(
         'sample1.welcome',
         {
-          name: 'Ujwal'
+          name: 'John Doe'
         },
         {
           meta: {
@@ -66,7 +66,7 @@ describe('moleculer-service-ts', () => {
           }
         }
       );
-      expect(response).toBe('Welcome Ujwal!');
+      expect(response).toBe('Welcome John Doe!');
     });
 
     it('Action with optional parameter missing', async () => {
