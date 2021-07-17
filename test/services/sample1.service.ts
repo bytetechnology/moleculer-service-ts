@@ -1,6 +1,11 @@
 // Moleculer micro-services framework
 import moleculer, { Errors } from 'moleculer';
-import { Action, Event, Method, Service } from 'moleculer-decorators';
+import {
+  Action,
+  Event,
+  Method,
+  Service
+} from 'moleculer-decorators-extra';
 
 const eventSchema = { id: 'string' };
 
