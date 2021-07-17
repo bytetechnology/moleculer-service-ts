@@ -21,20 +21,18 @@ interface ActionWithParametersInterface extends ActionInterface {
 // Action type utilities
 
 // Get simple action type from list of action type
-type ActionWithoutParameters<
-  A extends ActionInterface
-> = A extends ActionWithParametersInterface
-  ? never
-  : A extends EventInterface
-  ? Exclude<keyof A, keyof ActionInterface> extends never
-    ? A
-    : never
-  : never;
+type ActionWithoutParameters<A extends ActionInterface> =
+  A extends ActionWithParametersInterface
+    ? never
+    : A extends EventInterface
+    ? Exclude<keyof A, keyof ActionInterface> extends never
+      ? A
+      : never
+    : never;
 
 // Get payload event type from list of event type
-type ActionWithParameters<
-  A extends ActionInterface
-> = A extends ActionWithParametersInterface ? A : never;
+type ActionWithParameters<A extends ActionInterface> =
+  A extends ActionWithParametersInterface ? A : never;
 
 // Get the parameters type for an ActionWithParameters type
 type ActionParameters<A, T> = A extends ActionWithParametersInterface
@@ -50,14 +48,12 @@ type ActionReturns<A, T> = A extends ActionInterface
 type ActionName<A extends ActionInterface> = A['name'];
 
 // Get action name types for event types without payload
-type ActionNameWithoutParameters<
-  A extends ActionInterface
-> = ActionWithoutParameters<A>['name'];
+type ActionNameWithoutParameters<A extends ActionInterface> =
+  ActionWithoutParameters<A>['name'];
 
 // Get action name types for event types with payload
-type ActionNameWithParameters<
-  A extends ActionInterface
-> = ActionWithParameters<A>['name'];
+type ActionNameWithParameters<A extends ActionInterface> =
+  ActionWithParameters<A>['name'];
 
 // Event interfaces and utilities
 
@@ -72,20 +68,18 @@ interface EventWithPayloadInterface extends EventInterface {
 // Event type utilities
 
 // Get simple event type from list of event type
-type EventWithoutPayload<
-  E extends EventInterface
-> = E extends EventWithPayloadInterface
-  ? never
-  : E extends EventInterface
-  ? Exclude<keyof E, keyof EventInterface> extends never
-    ? E
-    : never
-  : never;
+type EventWithoutPayload<E extends EventInterface> =
+  E extends EventWithPayloadInterface
+    ? never
+    : E extends EventInterface
+    ? Exclude<keyof E, keyof EventInterface> extends never
+      ? E
+      : never
+    : never;
 
 // Get payload event type from list of event type
-type EventWithPayload<
-  E extends EventInterface
-> = E extends EventWithPayloadInterface ? E : never;
+type EventWithPayload<E extends EventInterface> =
+  E extends EventWithPayloadInterface ? E : never;
 
 // Get the payload type for an EventWithPayload type
 type EventPayload<E, T> = E extends EventWithPayloadInterface
@@ -93,14 +87,12 @@ type EventPayload<E, T> = E extends EventWithPayloadInterface
   : never;
 
 // Get event name types for event types without payload
-type EventNameWithoutPayload<
-  E extends EventInterface
-> = EventWithoutPayload<E>['name'];
+type EventNameWithoutPayload<E extends EventInterface> =
+  EventWithoutPayload<E>['name'];
 
 // Get event name types for event types with payload
-type EventNameWithPayload<
-  E extends EventInterface
-> = EventWithPayload<E>['name'];
+type EventNameWithPayload<E extends EventInterface> =
+  EventWithPayload<E>['name'];
 
 // Our exports
 
