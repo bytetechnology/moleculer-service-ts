@@ -5,17 +5,27 @@ import moleculer from 'moleculer';
 // This is so that we are forcing an actual key/value object type
 type GenericObject = { [name: string]: any };
 
-// Action interfaces and utilities
+// Action interfaces
 
 // All actions should have this interface
 interface ActionInterface {
   name: string;
-  returns: any;
+  returns: unknown;
 }
 
 // Actions with parameters should have this interface
 interface ActionWithParametersInterface extends ActionInterface {
   parameters: GenericObject;
+}
+
+// Event interfaces
+
+interface EventInterface {
+  name: string;
+}
+
+interface EventWithPayloadInterface extends EventInterface {
+  payload: GenericObject;
 }
 
 // Action type utilities
@@ -30,7 +40,7 @@ type ActionWithoutParameters<A extends ActionInterface> =
       : never
     : never;
 
-// Get payload event type from list of event type
+// action with params
 type ActionWithParameters<A extends ActionInterface> =
   A extends ActionWithParametersInterface ? A : never;
 
@@ -54,16 +64,6 @@ type ActionNameWithoutParameters<A extends ActionInterface> =
 // Get action name types for event types with payload
 type ActionNameWithParameters<A extends ActionInterface> =
   ActionWithParameters<A>['name'];
-
-// Event interfaces and utilities
-
-interface EventInterface {
-  name: string;
-}
-
-interface EventWithPayloadInterface extends EventInterface {
-  payload: GenericObject;
-}
 
 // Event type utilities
 
