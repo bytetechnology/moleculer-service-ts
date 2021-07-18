@@ -232,7 +232,7 @@ export class TypedServiceBroker<
     payload?: any,
     opts?: any
   ): Promise<void> {
-    return super.emit(name, payload, opts);
+    return super.broadcast(name, payload, opts);
   }
 
   // Overload our broadcastLocal functions to type them
@@ -269,6 +269,6 @@ export class TypedServiceBroker<
     payload?: any,
     opts?: any
   ): Promise<void> {
-    return super.emit(name, payload, opts);
+    return super.broadcastLocal(name, payload, opts);
   }
 }
